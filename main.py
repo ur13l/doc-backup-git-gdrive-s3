@@ -17,7 +17,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 
-def create_zip_file_from_repo(clone_url, filename):
+def create_zip_file_from_repo(clone_url, filename, branch="master"):
     """
     Method that creates a zip file from a repo URL and creates it with the name provided by the user
     @params [clone_url, filename]
@@ -25,7 +25,7 @@ def create_zip_file_from_repo(clone_url, filename):
     - filename: Name provided for the zip file to be created.
     """
     print("Cloning repo " + clone_url +" into " + filename + ".zip")
-    repo = git.Repo.clone_from(clone_url, to_path=os.path.join(tempfile.mkdtemp()))
+    repo = git.Repo.clone_from(clone_url, to_path=os.path.join(tempfile.mkdtemp()), multi_options=['-b ' + branch])
 
     with open(filename + '.zip', "wb") as zipfile:
         repo.archive(zipfile, format='zip')
@@ -287,7 +287,7 @@ if __name__ == "__main__":
 
     # For each repo it is created a local zipfile that is uploaded to the Drive code folder.
     for repo in repos:
-        path = create_zip_file_from_repo(repo['url'], repo['name'])
+        path = create_zip_file_from_repo(repo['url'], repo['name'], repo['branch'])
         upload_file_to_drive(google_drive_code_folder_id, path, repo['name'], service)
 
     # Lastly, it is downloaded and compressed the documentation folder just to be uploaded to the S3 bucket.
