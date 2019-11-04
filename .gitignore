@@ -2,3 +2,4 @@
 venv/
 token.pickle
 repos.json
+.DS_Store
