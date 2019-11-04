@@ -1,0 +1,14 @@
+[
+    {
+        "name": "repo-1",
+        "url": "https://myrepo/project/example1"
+    },
+    {
+        "name": "repo-2",
+        "url": "https://myrepo/project/example2"
+    },
+    {
+        "name": "repo-3",
+        "url": "https://myrepo/project/example3"
+    }
+]
